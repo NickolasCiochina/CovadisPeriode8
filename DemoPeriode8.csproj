@@ -15,4 +15,8 @@
     <ProjectReference Include="..\DemoPeriode8.Shared\DemoPeriode8.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-namespace DemoPeriode8
+namespace DemoCovadis
 {
     public class WeatherForecast
     {

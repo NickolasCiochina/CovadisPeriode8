@@ -1,3 +1,5 @@
+using DemoCovadis.Context;
+using DemoCovadis.Models;
 using DemoCovadis.Shared;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +9,12 @@ namespace DemoCovadis.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private readonly LeenautoDbContext leenautoDbContext;
+
+        public UserController(LeenautoDbContext leenautoDbContext)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+            this.leenautoDbContext = leenautoDbContext;
+        }
 
         public static List<User> Users = new List<User>
         {
@@ -37,7 +41,7 @@ namespace DemoCovadis.Controllers
         {
             var userDtos = Users.Select(user => new UserDto
             {
-                Name = user.Name,
+                Password = user.Password,
                 Email = user.Email
             });
                
@@ -51,14 +55,5 @@ namespace DemoCovadis.Controllers
            return Ok();
         }
     }
-}
-
-
-public class User
-{
-    public string Name { get; set; }
-    public string Email { get; set; }
-
-    public string Password { get; set; }
 }
 

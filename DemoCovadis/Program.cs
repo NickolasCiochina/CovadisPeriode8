@@ -1,4 +1,8 @@
 
+using DemoCovadis.Context;
+using DemoCovadis.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace DemoCovadis
 {
     public class Program
@@ -14,6 +18,11 @@ namespace DemoCovadis
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<LeenautoDbContext>(options =>
+            {
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddTransient<UserService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -1,5 +1,6 @@
 using DemoCovadis.Context;
 using DemoCovadis.Models;
+using DemoCovadis.Services;
 using DemoCovadis.Shared;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,50 +10,38 @@ namespace DemoCovadis.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly LeenautoDbContext leenautoDbContext;
+        private readonly UserService userService;
 
-        public UserController(LeenautoDbContext leenautoDbContext)
+        public UserController(UserService userService)
         {
-            this.leenautoDbContext = leenautoDbContext;
+            this.userService = userService;
         }
 
-        public static List<User> Users = new List<User>
+        [HttpGet]
+        public IActionResult GetUsers()
         {
-           new User
-           {
-               Name = "Test",
-               Email = "Mail",
-               Password = "Secret password"
-           }
-        };
-
-
-        private readonly ILogger<UserController> _logger;
-
-        public UserController(ILogger<UserController> logger)
-        {
-            _logger = logger;
-
-            new User();
+            var users = userService.GetUsers();
+            return Ok(users);
         }
 
-        [HttpGet(Name = "Users")]
-        public IActionResult Get()
+        [HttpGet("{id}")]
+        public IActionResult GetUser(int id)
         {
-            var userDtos = Users.Select(user => new UserDto
-            {
-                Password = user.Password,
-                Email = user.Email
-            });
-               
-            
-            return Ok(userDtos);
+            return Ok();
         }
+
         [HttpPost]
-        public IActionResult Post([FromBody] User user)
+        public IActionResult CreateUser([FromBody] User user)
         {
-            Users.Add(user);
-           return Ok();
+            var createdUser = userService.CreateUser(user);
+
+            return Ok(createdUser);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] User user)
+        {
+            return Ok();
         }
     }
 }

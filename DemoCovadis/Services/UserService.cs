@@ -20,7 +20,7 @@ namespace DemoCovadis.Services
             return dbContext.Users.Select(x => new UserDto
             {
                 Id = x.Id,
-                Password = x.Password,
+                Name = x.Name,
                 Email = x.Email
             });
         }
@@ -37,7 +37,7 @@ namespace DemoCovadis.Services
             return new UserDto
             {
                 Id = user.Id,
-                Password = user.Name,
+                Name = user.Name,
                 Email = user.Email
             };
         }
@@ -50,7 +50,7 @@ namespace DemoCovadis.Services
             return new UserDto
             {
                 Id = user.Id,
-                Password = user.Password,
+                Name = user.Name,
                 Email = user.Email
             };
         }

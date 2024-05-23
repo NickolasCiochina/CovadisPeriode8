@@ -2,6 +2,7 @@
 using DemoCovadis.Context;
 using DemoCovadis.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace DemoCovadis
 {
@@ -14,6 +15,7 @@ namespace DemoCovadis
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -22,7 +24,10 @@ namespace DemoCovadis
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            //services defined
             builder.Services.AddTransient<UserService>();
+            builder.Services.AddTransient<ChauffeurService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

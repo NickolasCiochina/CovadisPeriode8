@@ -1,72 +1,62 @@
 ﻿using DemoCovadis.Context;
 using DemoCovadis.Models;
+using DemoCovadis.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DemoCovadis.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    
     public class ChauffeurController : ControllerBase
     {
-        private readonly LeenautoDbContext leenautoDbContext;
+        private readonly ChauffeurService chauffeurService;
 
-        public ChauffeurController(LeenautoDbContext leenautoDbContext)
+        public ChauffeurController(ChauffeurService chauffeurService)
         {
-            this.leenautoDbContext = leenautoDbContext;
+            this.chauffeurService = chauffeurService;
         }
 
         [HttpGet]
-        public IEnumerable<Chauffeur> GetChauffeurs()
+        public IActionResult GetChauffeurs()
         {
-            return leenautoDbContext.Chauffeurs.ToArray();
+            var chauffeurs = chauffeurService.GetChauffeurs();
+            return Ok(chauffeurs);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Chauffeur> getChauffeur(int id)
+        public IActionResult getChauffeur(int id)
         {
-            Chauffeur chauffeur = leenautoDbContext.Chauffeurs.Include(x=> x.Naam).SingleOrDefault(x => x.Id == id);
-            return Ok(chauffeur);
+            return Ok();
         }
 
         [HttpGet("[action]/{naam}")]
-        public IEnumerable<Chauffeur> SearchChauffeur(string naam)
+        public IActionResult SearchChauffeur(string naam)
         {
-            return leenautoDbContext.Chauffeurs
-                .Include(x => x.Autos)
-                .Where(n => n.Naam
-                    .ToLower()
-                    .Contains(naam.ToLower()))
-                .ToArray();
+            var chauffeurName = chauffeurService.SearchChauffeur(naam);
+            return Ok(chauffeurName);
         }
 
         [HttpPost]
-        public ActionResult<Chauffeur> AddChauffeur(Chauffeur chauffeur)
+        public IActionResult CreateUser([FromBody] Chauffeur chauffeur)
         {
-            leenautoDbContext.Chauffeurs.Add(chauffeur);
-            leenautoDbContext.SaveChanges();
-            return Ok(chauffeur);
+            var createdChauffeur = chauffeurService.CreateChauffeur(chauffeur);
+
+            return Ok(createdChauffeur);
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateChauffeur(int id, Chauffeur chauffeur)
+        public IActionResult UpdateChauffeur(int id, [FromBody] Chauffeur chauffeur)
         {
-            Chauffeur oldChauffeur =  leenautoDbContext.Chauffeurs.SingleOrDefault(x=> x.Id == id);
-
-            oldChauffeur.Naam = chauffeur.Naam;
-            oldChauffeur.TelefoonNummer = chauffeur.TelefoonNummer;
-
-            leenautoDbContext.SaveChanges();
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteChauffeur(int id) 
-        { 
-            leenautoDbContext.Chauffeurs.Where(x=> x.Id == id).ExecuteDelete();
-            leenautoDbContext.SaveChanges();
-            return Ok();
+        public void DeleteChauffeur(int id)
+        {
+            chauffeurService.DeleteChauffeur(id);
         }
 
     }

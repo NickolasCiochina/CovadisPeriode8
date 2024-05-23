@@ -6,15 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoCovadis.Services
 {
-    public class UserService
+    public class UserService(LeenautoDbContext dbContext)
     {
-        private readonly LeenautoDbContext dbContext;
+        private readonly LeenautoDbContext dbContext = dbContext;
 
-        public UserService(LeenautoDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
-
+      
         public IEnumerable<UserDto> GetUsers()
         {
             return dbContext.Users.Select(x => new UserDto

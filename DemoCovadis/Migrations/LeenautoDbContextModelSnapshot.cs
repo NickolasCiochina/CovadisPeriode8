@@ -124,15 +124,6 @@ namespace DemoCovadis.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Email = "user@example.com",
-                            Name = "User",
-                            Password = "UserPassword"
-                });
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.Auto", b =>

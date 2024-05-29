@@ -40,7 +40,7 @@ namespace DemoCovadis.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser([FromBody] Chauffeur chauffeur)
+        public IActionResult CreateChauffeur([FromBody] Chauffeur chauffeur)
         {
             var createdChauffeur = chauffeurService.CreateChauffeur(chauffeur);
 

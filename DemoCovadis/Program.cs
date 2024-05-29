@@ -28,6 +28,7 @@ namespace DemoCovadis
             //services defined
             builder.Services.AddTransient<UserService>();
             builder.Services.AddTransient<ChauffeurService>();
+            builder.Services.AddTransient<ReserveringService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

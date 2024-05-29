@@ -3,6 +3,7 @@ using System;
 using DemoCovadis.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoCovadis.Migrations
 {
     [DbContext(typeof(LeenautoDbContext))]
-    partial class LeenautoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240529091713_authenticatie_build")]
+    partial class authenticatie_build
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");

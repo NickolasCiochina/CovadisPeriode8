@@ -8,7 +8,6 @@ namespace DemoCovadis.Context
 
         public DbSet<Auto> Autos { get; set; }
         public DbSet<Chauffeur> Chauffeurs { get; set; }
-        
         public DbSet<User> Users { get; set; }
 
         public object User {  get; internal set; }
@@ -16,6 +15,18 @@ namespace DemoCovadis.Context
         public LeenautoDbContext(DbContextOptions<LeenautoDbContext> options)
            : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 2,
+                    Name = "User",
+                    Email = "user@example.com",
+                    Password = "UserPassword"
+                });
         }
     }
 }

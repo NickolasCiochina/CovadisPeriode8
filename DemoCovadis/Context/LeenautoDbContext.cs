@@ -8,7 +8,7 @@ namespace DemoCovadis.Context
 
         public DbSet<Auto> Auto { get; set; }
         public DbSet<Chauffeur> Chauffeurs { get; set; }
-
+        public DbSet<Reservering> Reserveringen { get; set; }
         public DbSet<User> Users { get; set; }
         public object User { get; internal set; }
 

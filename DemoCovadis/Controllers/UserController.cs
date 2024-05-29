@@ -32,9 +32,9 @@ namespace DemoCovadis.Controllers
 
         [HttpPost]
         public IActionResult CreateUser([FromBody] User user)
-        {
+            {
             var createdUser = userService.CreateUser(user);
-
+            
             return Ok(createdUser);
         }
 
@@ -45,4 +45,7 @@ namespace DemoCovadis.Controllers
         }
     }
 }
+
+
+
 

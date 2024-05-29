@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 # database ignore
 leenauto.db
+FodyWeavers.xsd
+/DemoCovadis/leenauto.db

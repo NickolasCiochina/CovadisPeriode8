@@ -20,7 +20,8 @@ namespace DemoCovadis.Controllers
         {
             var users = userService.GetUsers();
             return Ok(users);
-        }
+           }
+        };
 
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
@@ -30,26 +31,21 @@ namespace DemoCovadis.Controllers
 
         [HttpPost]
         public IActionResult CreateUser([FromBody] User user)
-        {
+            {
             var createdUser = userService.CreateUser(user);
-
+            
             return Ok(createdUser);
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
-            return Ok();
+            Users.Add(user);
+           return Ok();
         }
     }
 }
 
 
-public class User
-{
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public int Id { get; internal set; }
-}
+
 

@@ -1,3 +1,5 @@
+using DemoCovadis.Context;
+using DemoCovadis.Models;
 using DemoCovadis.Services;
 using DemoCovadis.Shared;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +22,7 @@ namespace DemoCovadis.Controllers
         {
             var users = userService.GetUsers();
             return Ok(users);
-           }
-        };
+        }
 
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
@@ -40,8 +41,7 @@ namespace DemoCovadis.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
-            Users.Add(user);
-           return Ok();
+            return Ok();
         }
     }
 }

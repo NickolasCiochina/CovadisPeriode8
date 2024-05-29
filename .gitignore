@@ -361,4 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# database ignore
+leenauto.db
+FodyWeavers.xsd
 /DemoCovadis/leenauto.db

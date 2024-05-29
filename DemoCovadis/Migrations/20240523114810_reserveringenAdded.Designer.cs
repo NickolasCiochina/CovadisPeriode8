@@ -3,6 +3,7 @@ using System;
 using DemoCovadis.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoCovadis.Migrations
 {
     [DbContext(typeof(LeenautoDbContext))]
-    partial class LeenautoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240523114810_reserveringenAdded")]
+    partial class reserveringenAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
@@ -41,7 +44,7 @@ namespace DemoCovadis.Migrations
 
                     b.HasIndex("ChauffeurId");
 
-                    b.ToTable("Autos");
+                    b.ToTable("Auto");
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.Chauffeur", b =>
@@ -124,15 +127,6 @@ namespace DemoCovadis.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Email = "user@example.com",
-                            Name = "User",
-                            Password = "UserPassword"
-                });
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.Auto", b =>

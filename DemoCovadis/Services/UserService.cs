@@ -1,4 +1,5 @@
-﻿using DemoCovadis.Context;
+﻿
+using DemoCovadis.Context;
 using DemoCovadis.Shared;
 using DemoCovadis.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ namespace DemoCovadis.Services
         {
             this.dbContext = dbContext;
         }
-
+      
         public IEnumerable<UserDto> GetUsers()
         {
             return dbContext.Users.Select(x => new UserDto

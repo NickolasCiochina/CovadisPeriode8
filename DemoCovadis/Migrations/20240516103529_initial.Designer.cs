@@ -3,6 +3,7 @@ using System;
 using DemoCovadis.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoCovadis.Migrations
 {
     [DbContext(typeof(LeenautoDbContext))]
-    partial class LeenautoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240516103529_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
@@ -41,7 +44,7 @@ namespace DemoCovadis.Migrations
 
                     b.HasIndex("ChauffeurId");
 
-                    b.ToTable("Autos");
+                    b.ToTable("Auto");
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.Chauffeur", b =>
@@ -71,38 +74,6 @@ namespace DemoCovadis.Migrations
                     b.ToTable("Chauffeurs");
                 });
 
-            modelBuilder.Entity("DemoCovadis.Models.Reservering", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AutoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ChauffeurId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Datum")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EindAdres")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StartAdres")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AutoId");
-
-                    b.HasIndex("ChauffeurId");
-
-                    b.ToTable("Reserveringen");
-                });
-
             modelBuilder.Entity("DemoCovadis.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -124,15 +95,6 @@ namespace DemoCovadis.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Email = "user@example.com",
-                            Name = "User",
-                            Password = "UserPassword"
-                });
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.Auto", b =>
@@ -140,25 +102,6 @@ namespace DemoCovadis.Migrations
                     b.HasOne("DemoCovadis.Models.Chauffeur", "Chauffeur")
                         .WithMany("Autos")
                         .HasForeignKey("ChauffeurId");
-
-                    b.Navigation("Chauffeur");
-                });
-
-            modelBuilder.Entity("DemoCovadis.Models.Reservering", b =>
-                {
-                    b.HasOne("DemoCovadis.Models.Auto", "Auto")
-                        .WithMany()
-                        .HasForeignKey("AutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DemoCovadis.Models.Chauffeur", "Chauffeur")
-                        .WithMany()
-                        .HasForeignKey("ChauffeurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Auto");
 
                     b.Navigation("Chauffeur");
                 });

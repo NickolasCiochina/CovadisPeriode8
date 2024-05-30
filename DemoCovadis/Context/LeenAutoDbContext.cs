@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoCovadis.Context
 {
-    public class LeenautoDbContext : DbContext
+    public class LeenAutoDbContext : DbContext
     {
 
         public DbSet<Auto> Autos { get; set; }
@@ -12,7 +12,7 @@ namespace DemoCovadis.Context
         public DbSet<User> Users { get; set; }
         public object User { get; internal set; }
 
-        public LeenautoDbContext(DbContextOptions<LeenautoDbContext> options)
+        public LeenAutoDbContext(DbContextOptions<LeenAutoDbContext> options)
            : base(options)
         {
         }

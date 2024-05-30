@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoCovadis.Services
 {
-    public class ReserveringService(LeenautoDbContext dbContext)
+    public class ReserveringService(LeenAutoDbContext dbContext)
     {
-        private readonly LeenautoDbContext dbContext = dbContext;
+        private readonly LeenAutoDbContext dbContext = dbContext;
 
 
         public IEnumerable<ReserveringDto> GetReserverings()

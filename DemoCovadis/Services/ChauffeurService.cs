@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoCovadis.Services
 {
-    public class ChauffeurService(LeenautoDbContext dbContext)
+    public class ChauffeurService(LeenAutoDbContext dbContext)
     {
-        private readonly LeenautoDbContext dbContext = dbContext;
+        private readonly LeenAutoDbContext dbContext = dbContext;
 
 
         public IEnumerable<ChauffeurDto> GetChauffeurs()

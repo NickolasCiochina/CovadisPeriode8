@@ -10,9 +10,9 @@ namespace DemoCovadis.Controllers
     [ApiController]
     public class AutoController : ControllerBase
     {
-        private readonly LeenautoDbContext leenautoDbContext;
+        private readonly LeenAutoDbContext leenautoDbContext;
 
-        public AutoController(LeenautoDbContext leenautoDbContext)
+        public AutoController(LeenAutoDbContext leenautoDbContext)
         {
             this.leenautoDbContext = leenautoDbContext;
         }

@@ -8,9 +8,9 @@ namespace DemoCovadis.Services
 {
     public class UserService
     {
-        private readonly LeenautoDbContext dbContext;
+        private readonly LeenAutoDbContext dbContext;
 
-        public UserService(LeenautoDbContext dbContext)
+        public UserService(LeenAutoDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

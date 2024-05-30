@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DemoCovadis.Migrations
 {
-    [DbContext(typeof(LeenautoDbContext))]
+    [DbContext(typeof(LeenAutoDbContext))]
     partial class LeenautoDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

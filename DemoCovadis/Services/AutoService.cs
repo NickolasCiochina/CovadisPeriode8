@@ -6,9 +6,9 @@ using System.Xml.Linq;
 
 namespace DemoCovadis.Services
 {
-    public class AutoService(LeenautoDbContext leenautoDbContext)
+    public class AutoService(LeenAutoDbContext leenautoDbContext)
     {
-        private readonly LeenautoDbContext leenautoDbContext = leenautoDbContext;
+        private readonly LeenAutoDbContext leenautoDbContext = leenautoDbContext;
 
         public IEnumerable<AutoDto> GetAutos()
         {

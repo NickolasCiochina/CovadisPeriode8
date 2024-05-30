@@ -54,7 +54,7 @@ namespace DemoCovadis
                 });
             });
 
-            builder.Services.AddDbContext<LeenautoDbContext>(options =>
+            builder.Services.AddDbContext<LeenAutoDbContext>(options =>
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
@@ -80,7 +80,7 @@ namespace DemoCovadis
                };
            });
 
-            builder.Services.AddDbContext<LeenautoDbContext>(options =>
+            builder.Services.AddDbContext<LeenAutoDbContext>(options =>
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
             });

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -42,7 +43,7 @@ namespace DemoCovadis.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Auto",
+                name: "Autos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -54,17 +55,56 @@ namespace DemoCovadis.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Auto", x => x.Id);
+                    table.PrimaryKey("PK_Autos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Auto_Chauffeurs_ChauffeurId",
+                        name: "FK_Autos_Chauffeurs_ChauffeurId",
                         column: x => x.ChauffeurId,
                         principalTable: "Chauffeurs",
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reserveringen",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AutoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ChauffeurId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Datum = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    StartAdres = table.Column<string>(type: "TEXT", nullable: false),
+                    EindAdres = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reserveringen", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reserveringen_Autos_AutoId",
+                        column: x => x.AutoId,
+                        principalTable: "Autos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reserveringen_Chauffeurs_ChauffeurId",
+                        column: x => x.ChauffeurId,
+                        principalTable: "Chauffeurs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Auto_ChauffeurId",
-                table: "Auto",
+                name: "IX_Autos_ChauffeurId",
+                table: "Autos",
+                column: "ChauffeurId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reserveringen_AutoId",
+                table: "Reserveringen",
+                column: "AutoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reserveringen_ChauffeurId",
+                table: "Reserveringen",
                 column: "ChauffeurId");
         }
 
@@ -72,10 +112,13 @@ namespace DemoCovadis.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Auto");
+                name: "Reserveringen");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Autos");
 
             migrationBuilder.DropTable(
                 name: "Chauffeurs");

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.Data;
 
 namespace DemoCovadis.Services
 {
-    public class AuthService(LeenautoDbContext dbContext, TokenService tokenService)
+    public class AuthService(LeenAutoDbContext dbContext, TokenService tokenService)
     {
         public AuthResponse? Login(Shared.LoginRequest request)
         {

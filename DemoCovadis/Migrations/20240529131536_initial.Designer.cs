@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DemoCovadis.Migrations
 {
-    [DbContext(typeof(LeenautoDbContext))]
+    [DbContext(typeof(LeenAutoDbContext))]
     [Migration("20240529131536_initial")]
     partial class initial
     {

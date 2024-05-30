@@ -366,3 +366,4 @@ FodyWeavers.xsd
 leenauto.db
 FodyWeavers.xsd
 /DemoCovadis/leenauto.db
+/DemoCovadis/Context/LeenautoDbContext.cs

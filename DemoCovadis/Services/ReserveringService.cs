@@ -1,18 +1,18 @@
 ﻿using DemoCovadis.Context;
 using DemoCovadis.Models;
-using DemoCovadis.Shared;
+using DemoCovadis.Shared.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace DemoCovadis.Services
 {
-    public class ReserveringService(LeenautoDbContext dbContext)
+    public class ReserveringService(LeenAutoDbContext dbContext)
     {
-        private readonly LeenautoDbContext dbContext = dbContext;
+        private readonly LeenAutoDbContext dbContext = dbContext;
 
 
         public IEnumerable<ReserveringDto> GetReserverings()
         {
-            return dbContext.Reserveringen.Select(x => new ReserveringDto
+            return dbContext.Reservering.Select(x => new ReserveringDto
             {
                 Id = x.Id,
                 StartAdres = x.StartAdres,
@@ -23,7 +23,7 @@ namespace DemoCovadis.Services
         }
         public ReserveringDto? GetReserveringById(int id)
         {
-            var reservering = dbContext.Reserveringen.Find(id);
+            var reservering = dbContext.Reservering.Find(id);
 
             if (reservering == null)
             {
@@ -41,7 +41,7 @@ namespace DemoCovadis.Services
         }
         public ReserveringDto CreateReservering(Reservering reservering)
         {
-            dbContext.Reserveringen.Add(reservering);
+            dbContext.Reservering.Add(reservering);
             dbContext.SaveChanges();
 
             return new ReserveringDto
@@ -66,7 +66,7 @@ namespace DemoCovadis.Services
         }*/
         public void DeleteReservering(int id)
         {
-            dbContext.Reserveringen.Where(x => x.Id == id).ExecuteDelete();
+            dbContext.Reservering.Where(x => x.Id == id).ExecuteDelete();
             dbContext.SaveChanges();
 
         }

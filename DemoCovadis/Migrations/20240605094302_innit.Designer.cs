@@ -10,9 +10,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DemoCovadis.Migrations
 {
-    [DbContext(typeof(LeenautoDbContext))]
-    [Migration("20240523114810_reserveringenAdded")]
-    partial class reserveringenAdded
+    [DbContext(typeof(LeenAutoDbContext))]
+    [Migration("20240605094302_innit")]
+    partial class innit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace DemoCovadis.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chauffeurs");
+                    b.ToTable("Chauffeur");
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.Reservering", b =>
@@ -103,7 +103,34 @@ namespace DemoCovadis.Migrations
 
                     b.HasIndex("ChauffeurId");
 
-                    b.ToTable("Reserveringen");
+                    b.ToTable("Reservering");
+                });
+
+            modelBuilder.Entity("DemoCovadis.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.User", b =>
@@ -126,7 +153,31 @@ namespace DemoCovadis.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            Email = "user@example.com",
+                            Name = "User",
+                            Password = "UserPassword"
+                        });
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<int>("RolesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RoleUser");
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.Auto", b =>
@@ -155,6 +206,21 @@ namespace DemoCovadis.Migrations
                     b.Navigation("Auto");
 
                     b.Navigation("Chauffeur");
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.HasOne("DemoCovadis.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DemoCovadis.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DemoCovadis.Models.Chauffeur", b =>

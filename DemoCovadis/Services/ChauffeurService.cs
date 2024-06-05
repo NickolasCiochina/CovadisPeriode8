@@ -1,20 +1,20 @@
 ﻿using DemoCovadis.Context;
 using DemoCovadis.Models;
-using DemoCovadis.Shared;
+using DemoCovadis.Shared.Dtos;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DemoCovadis.Services
 {
-    public class ChauffeurService(LeenautoDbContext dbContext)
+    public class ChauffeurService(LeenAutoDbContext dbContext)
     {
-        private readonly LeenautoDbContext dbContext = dbContext;
+        private readonly LeenAutoDbContext dbContext = dbContext;
 
 
         public IEnumerable<ChauffeurDto> GetChauffeurs()
         {
-            return dbContext.Chauffeurs.Select(x => new ChauffeurDto
+            return dbContext.Chauffeur.Select(x => new ChauffeurDto
             {
                 Id = x.Id,
                 Naam = x.Naam,
@@ -26,7 +26,7 @@ namespace DemoCovadis.Services
         }
         public ChauffeurDto? GetChauffeurById(int id)
         {
-            var chauffeur = dbContext.Chauffeurs.Find(id);
+            var chauffeur = dbContext.Chauffeur.Find(id);
 
             if (chauffeur == null)
             {
@@ -44,7 +44,7 @@ namespace DemoCovadis.Services
         }
         public ChauffeurDto CreateChauffeur(Chauffeur chauffeur)
         {
-            dbContext.Chauffeurs.Add(chauffeur);
+            dbContext.Chauffeur.Add(chauffeur);
             dbContext.SaveChanges();
 
             return new ChauffeurDto
@@ -62,7 +62,7 @@ namespace DemoCovadis.Services
         }
         public IEnumerable<Chauffeur> SearchChauffeur(string naam)
         {
-            return dbContext.Chauffeurs
+            return dbContext.Chauffeur
                     .Where(n => n.Naam
                     .ToLower()
                     .Contains(naam.ToLower()))
@@ -70,7 +70,7 @@ namespace DemoCovadis.Services
         }
         public void DeleteChauffeur(int id)
         {
-            dbContext.Chauffeurs.Where(x => x.Id == id).ExecuteDelete();
+            dbContext.Chauffeur.Where(x => x.Id == id).ExecuteDelete();
             dbContext.SaveChanges();
 
         }

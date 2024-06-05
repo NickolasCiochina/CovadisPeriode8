@@ -89,7 +89,19 @@ namespace DemoCovadis
             builder.Services.AddTransient<UserService>();
             builder.Services.AddTransient<ChauffeurService>();
             builder.Services.AddTransient<ReserveringService>();
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
+
+            app.UseCors();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

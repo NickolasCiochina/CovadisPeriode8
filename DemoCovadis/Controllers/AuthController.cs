@@ -1,6 +1,6 @@
 ﻿
 using DemoCovadis.Services;
-using DemoCovadis.Shared;
+using DemoCovadis.Shared.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +12,7 @@ namespace DemoCovadis.Controllers
     [Route("[controller]")]
     public class AuthController(AuthService authService) : ControllerBase
     {
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Login([FromBody] LoginRequest request)
         {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoCovadis.Shared
+namespace DemoCovadis.Shared.Requests
 {
     public class LoginRequest
     {

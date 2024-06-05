@@ -1,6 +1,6 @@
 ﻿using DemoCovadis.Context;
 using DemoCovadis.Models;
-using DemoCovadis.Shared;
+using DemoCovadis.Shared.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 
@@ -12,7 +12,7 @@ namespace DemoCovadis.Services
 
         public IEnumerable<AutoDto> GetAutos()
         {
-            return leenautoDbContext.Autos.Select(x=> new AutoDto
+            return leenautoDbContext.Auto.Select(x=> new AutoDto
             {
                 Id = x.Id,
                 Merk = x.Merk,
@@ -24,7 +24,7 @@ namespace DemoCovadis.Services
 
         public AutoDto? GetAutoById(int id)
         {
-            var auto = leenautoDbContext.Autos.Find(id);
+            var auto = leenautoDbContext.Auto.Find(id);
 
             if (auto == null)
             {
@@ -43,7 +43,7 @@ namespace DemoCovadis.Services
 
         public AutoDto CreateAuto(Auto auto)
         {
-            leenautoDbContext.Autos.Add(auto);
+            leenautoDbContext.Auto.Add(auto);
             leenautoDbContext.SaveChanges();
 
             return new AutoDto

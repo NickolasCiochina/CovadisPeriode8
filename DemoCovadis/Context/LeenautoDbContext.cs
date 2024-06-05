@@ -6,15 +6,40 @@ namespace DemoCovadis.Context
     public class LeenAutoDbContext : DbContext
     {
 
-        public DbSet<Auto> Autos { get; set; }
-        public DbSet<Chauffeur> Chauffeurs { get; set; }
-        public DbSet<Reservering> Reserveringen { get; set; }
-        public DbSet<User> Users { get; set; }
-        public object User { get; internal set; }
+        public DbSet<Auto> Auto { get; set; }
+        public DbSet<Chauffeur> Chauffeur { get; set; }
+        public DbSet<Reservering> Reservering { get; set; }
+        public DbSet<User> User { get; set; }
+        //public object User { get; internal set; }
+        public DbSet<Role> Role { get; set; }
 
         public LeenAutoDbContext(DbContextOptions<LeenAutoDbContext> options)
            : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 2,
+                    Name = "User",
+                    Email = "user@example.com",
+                    Password = "UserPassword"
+                });
+
+            modelBuilder.Entity<Role>().HasData(
+                new Role
+                {
+                    Id = 1,
+                    Name = "Admin"
+                },
+                new Role
+                {
+                    Id = 2,
+                    Name = "User"
+                });
         }
     }
 }

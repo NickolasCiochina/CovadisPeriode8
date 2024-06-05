@@ -1,4 +1,4 @@
-﻿namespace DemoCovadis.Shared
+﻿namespace DemoCovadis.Shared.Dtos
 {
     public class UserDto
     {

@@ -1,7 +1,9 @@
 using DemoCovadis.Context;
 using DemoCovadis.Models;
 using DemoCovadis.Services;
-using DemoCovadis.Shared;
+using DemoCovadis.Shared.Requests;
+using DemoCovadis.Shared.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoCovadis.Controllers
@@ -17,8 +19,9 @@ namespace DemoCovadis.Controllers
             this.userService = userService;
         }
 
+        [Authorize]
         [HttpGet]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers() 
         {
             var users = userService.GetUsers();
             return Ok(users);
@@ -30,6 +33,7 @@ namespace DemoCovadis.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = nameof(UserRole.Admin))]
         [HttpPost]
         public IActionResult CreateUser([FromBody] User user)
             {
@@ -38,10 +42,25 @@ namespace DemoCovadis.Controllers
             return Ok(createdUser);
         }
 
+        [Authorize(Roles = nameof(UserRole.User))]
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
-            return Ok();
+            throw new NotImplementedException();
+        }
+
+        [Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.User))]
+        [HttpPatch("assign-role")]
+        public IActionResult AssignRole(AssignRoleRequest request)
+        {
+            var result = userService.AssignRole(request);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }

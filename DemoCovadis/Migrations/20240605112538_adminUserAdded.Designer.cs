@@ -3,6 +3,7 @@ using System;
 using DemoCovadis.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoCovadis.Migrations
 {
     [DbContext(typeof(LeenAutoDbContext))]
-    partial class LeenAutoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240605112538_adminUserAdded")]
+    partial class adminUserAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
@@ -80,10 +83,6 @@ namespace DemoCovadis.Migrations
                     b.Property<int>("AutoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("BeginKilometerStand")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("ChauffeurId")
                         .HasColumnType("INTEGER");
 
@@ -91,10 +90,6 @@ namespace DemoCovadis.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EindAdres")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EindKilometerStand")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

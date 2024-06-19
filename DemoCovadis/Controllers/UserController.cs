@@ -19,7 +19,7 @@ namespace DemoCovadis.Controllers
             this.userService = userService;
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetUsers() 
         {
@@ -47,6 +47,13 @@ namespace DemoCovadis.Controllers
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
             throw new NotImplementedException();
+        }
+
+        [Authorize(Roles = nameof(UserRole.Admin))]
+        [HttpDelete("{id}")]
+        public void DeleteReservering(int id)
+        {
+            userService.DeleteReservering(id);
         }
 
         [Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.User))]

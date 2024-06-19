@@ -21,6 +21,13 @@ namespace DemoCovadis.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
+                 new User
+                {
+                    Id = 1,
+                    Name = "Admin",
+                    Email = "admin@example.com",
+                    Password = "AdminPassword"
+                },
                 new User
                 {
                     Id = 2,

@@ -26,11 +26,11 @@ namespace DemoCovadis.Controllers
         }
 
         [HttpGet("{id}")]
-        
+
         public ActionResult<Auto> GetAuto(int id)
         {
-            Auto auto = leenautoDbContext.Auto.Include(x=> x.Chauffeur).SingleOrDefault(x=>x.Id == id);
-        
+            Auto auto = leenautoDbContext.Auto.Include(x => x.Chauffeur).SingleOrDefault(x => x.Id == id);
+
             return Ok(auto);
         }
 

@@ -1,0 +1,70 @@
+﻿@page "/ritten"
+@inject UserHttpClient UserHttpClient;
+@using DemoCovadis.Shared.Dtos;
+@using DemoCovadis.Blazor.Components
+@using DemoCovadis.Shared.Clients;
+@using DemoCovadis.Shared.Requests;
+<PageTitle>Ritten</PageTitle>
+<PageHeader>Ritten</PageHeader>
+<div class="d-flex justify-content-center">
+    <EditForm Model="Request" class="w-50">
+        <div class="d-flex flex-column">
+            <label for="user">selecteer de gebruiker die de rit heeft gereden</label>
+            <select id="user" class="w-50">
+                <option></option>
+                @if (Users != null)
+                {
+                    @foreach (var user in Users)
+                    {
+                        <option>@user.Name</option>
+                    }
+                }
+                else
+                {
+                    <option>niks gevonden</option>
+                }
+            </select>
+        </div>
+        <div class="d-flex flex-column pt-4">
+            <label for="beginAdres">Begin adres</label>
+            <InputText @bind-Value="@Request.StartAdres" class="w-50" type="text" id="beginStand" />
+        </div>
+        <div class="d-flex flex-column pt-4">
+            <label for="eindAdres">Eind adres</label>
+            <InputText @bind-Value="@Request.EindAdres" class="w-50" type="text" id="eindAdres" />
+        </div>
+        <div class="d-flex flex-column pt-4">
+            <label for="beginStand">Kilometer stand begin van de rit.</label>
+            <InputText @bind-Value="Request.BeginKilometerStand" class="w-50" type="text" id="beginStand" />
+        </div>
+        <div class="d-flex flex-column pt-4">
+            <label for="eindStand">Kilometer stand einde van de rit.</label>
+            <InputText @bind-Value="Request.EindKilometerStand" class="w-50" type="text" id="eindStand" />
+        </div>
+        <div class="d-flex flex-column pt-4">
+            <label for="datum">Geef de datum van wanneer de rit is/was</label>
+            <InputDate @bind-Value="Request.Datum" class="w-50" id="datum" />
+        </div>
+        <input class="btn btn-primary mt-4" type="submit" value="Submit">
+    </EditForm>
+</div>
+
+
+@code {
+    public UserDto[] Users { get; set; }
+    private readonly ReserveringRequest Request = new();
+
+    protected override void OnInitialized()
+    {
+        Request.Datum = DateTime.Now;
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        Users = await UserHttpClient.GetUsers();
+    }
+
+    private async Task LoginAsync()
+    {
+        
+    }
+}

@@ -23,11 +23,19 @@ namespace DemoCovadis.Context
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id = 2,
-                    Name = "User",
-                    Email = "user@example.com",
-                    Password = "UserPassword"
-                });
+                    Id = 1,
+                    Name = "Admin",
+                    Email = "admin@example.com",
+                    Password = "AdminPassword"
+                },
+
+                 new User
+                 {
+                     Id = 2,
+                     Name = "User",
+                     Email = "user@example.com",
+                     Password = "UserPassword"
+                 });
 
             modelBuilder.Entity<Role>().HasData(
                 new Role

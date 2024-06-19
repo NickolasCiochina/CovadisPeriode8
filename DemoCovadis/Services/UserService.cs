@@ -61,6 +61,14 @@ namespace DemoCovadis.Services
         {
             throw new NotImplementedException();
         }
+
+        public void DeleteReservering(int id)
+        {
+            dbContext.User.Where(x => x.Id == id).ExecuteDelete();
+            dbContext.SaveChanges();
+
+        }
+
         public AssignRoleResponse? AssignRole(AssignRoleRequest request)
         {
             var user = dbContext.User

@@ -1,5 +1,6 @@
 ﻿using DemoCovadis.Models;
 using DemoCovadis.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace DemoCovadis.Controllers
             this.reserveringService = reserveringService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetReserveringen()
         {
@@ -36,6 +38,7 @@ namespace DemoCovadis.Controllers
             return Ok(ReserveringName);
         }*/
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult CreateReservering([FromBody] Reservering reservering)
         {

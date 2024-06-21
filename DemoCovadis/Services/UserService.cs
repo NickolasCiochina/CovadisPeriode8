@@ -62,7 +62,7 @@ namespace DemoCovadis.Services
             throw new NotImplementedException();
         }
 
-        public void DeleteReservering(int id)
+        public void DeleteUser(int id)
         {
             dbContext.User.Where(x => x.Id == id).ExecuteDelete();
             dbContext.SaveChanges();

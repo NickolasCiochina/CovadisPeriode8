@@ -19,6 +19,7 @@ namespace DemoCovadis.Controllers
             this.leenautoDbContext = leenautoDbContext;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Auto> GetAutos()
         {
@@ -34,6 +35,7 @@ namespace DemoCovadis.Controllers
             return Ok(auto);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult<Auto> AddAuto(Auto auto)
         {

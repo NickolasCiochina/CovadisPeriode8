@@ -53,7 +53,7 @@ namespace DemoCovadis.Controllers
         [HttpDelete("{id}")]
         public void DeleteReservering(int id)
         {
-            userService.DeleteReservering(id);
+            userService.DeleteUser(id);
         }
 
         [Authorize(Roles = nameof(UserRole.Admin) + "," + nameof(UserRole.User))]

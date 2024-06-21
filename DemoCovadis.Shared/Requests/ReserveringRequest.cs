@@ -22,5 +22,8 @@ namespace DemoCovadis.Shared.Requests
         public string BeginKilometerStand {  get; set; }
         [Required]
         public string EindKilometerStand { get; set; }
+
+        [Required]
+        public AutoDto Auto { get; set; }
     }
 }

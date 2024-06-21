@@ -14,6 +14,7 @@ namespace DemoCovadis.Blazor
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddHttpClient();
             builder.Services.AddScoped<UserHttpClient>();
+            builder.Services.AddScoped<ReserveringHttpClient>();
 
             await builder.Build().RunAsync();
         }

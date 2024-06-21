@@ -28,13 +28,6 @@ namespace DemoCovadis.Context
                     Email = "admin@example.com",
                     Password = "AdminPassword"
                 },
-                new User
-                {
-                    Id = 1,
-                    Name = "Admin",
-                    Email = "admin@example.com",
-                    Password = "AdminPassword"
-                },
 
                  new User
                  {

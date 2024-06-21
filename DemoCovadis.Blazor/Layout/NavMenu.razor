@@ -1,5 +1,5 @@
-﻿<div class="top-row ps-3 navbar     ">
-    <div class="container-fluid">
+﻿<div class="ps-3 navbar custom-yellow-backround">
+    <div class="container-fluid custom-yellow-backround">
         <a class="navbar-brand" href="">DemoCovadis.Blazor</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable custom-dark-blue-background" @onclick="ToggleNavMenu">
+<div class="@NavMenuCssClass nav-scrollable custom-yellow-backround" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
@@ -16,7 +16,7 @@
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="ritten">
-                <span class="bi bi-car-front-fill-nav-menu" aria-hidden="true"></span> Ritten
+                <span class="bi bi-car-front" aria-hidden="true"></span> Ritten
             </NavLink>
         </div>
         <div class="nav-item px-3">
@@ -28,8 +28,8 @@
 </div>
 
 <style>
-    .custom-dark-blue-background{
-        background-color: #10132f
+    .custom-yellow-backround{
+        background-color: #eeaf00;
     }
 </style>
 @code {

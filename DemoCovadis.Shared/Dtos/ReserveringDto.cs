@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DemoCovadis.Shared.Dtos;
 
-namespace DemoCovadis.Shared.Dtos
+public class ReserveringDto
 {
-    public class ReserveringDto
-    {
-        public int Id { get; set; }
-        public AutoDto Auto { get; set; }
-        public ChauffeurDto Chauffeur { get; set; }
-        public DateTime Datum { get; set; }
-        public string StartAdres { get; set; }
-        public string EindAdres { get; set; }
-        public string BeginKilometerStand { get; set; }
-        public string EindKilometerStand { get; set; }
-    }
+    public int Id { get; set; }
+    public AutoDto Auto { get; set; }
+    public ChauffeurDto Chauffeur { get; set; }
+    public DateTime Datum { get; set; }
+    public string StartAdres { get; set; }
+    public string EindAdres { get; set; }
+    public string BeginKilometerStand { get; set; }
+    public string EindKilometerStand { get; set; }
 }

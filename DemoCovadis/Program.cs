@@ -8,12 +8,6 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
 
-
-using DemoCovadis.Context;
-using DemoCovadis.Services;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
-
 namespace DemoCovadis
 {
     public class Program

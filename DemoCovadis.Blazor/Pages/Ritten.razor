@@ -1,135 +1,127 @@
 ﻿@page "/ritten"
-@inject UserHttpClient UserHttpClient;
-@inject ReserveringHttpClient reserveringHttpClient;
+@inject HttpClient HttpClient
 
-
-
-
-
-@using DemoCovadis.Shared.Dtos;
-@using DemoCovadis.Blazor.Components
-@using DemoCovadis.Shared.Clients;
-@using DemoCovadis.Shared.Requests;
+@using DemoCovadis.Shared.Dtos
+@using DemoCovadis.Shared.Requests
+@using System.Net.Http.Json
 
 <PageTitle>Ritten</PageTitle>
 <PageHeader>Ritten</PageHeader>
+
 <div class="d-flex mx-auto justify-content-center flex-column">
-    <EditForm Model="Request" class="w-50">
+    <EditForm Model="Request" OnValidSubmit="CreateRit" class="w-50">
         <div class="d-flex flex-column">
-            <label for="user">selecteer de gebruiker die de rit heeft gereden</label>
-            <select id="user" class="w-50">
-                <option></option>
-                @if (Users != null)
+            <label for="chauffeur">Selecteer de chauffeur</label>
+            <InputSelect id="chauffeur" @bind-Value="Request.ChauffeurId" class="w-50">
+                <option value="">Select a Chauffeur</option>
+                @if (Chauffeurs != null)
                 {
-                    @foreach (var user in Users)
+                    @foreach (var chauffeur in Chauffeurs)
                     {
-                        <option>@user.Name</option>
+                        <option value="@chauffeur.Id">@chauffeur.Voornaam @chauffeur.Achternaam</option>
                     }
                 }
                 else
                 {
-                    <option>niks gevonden</option>
-                }
-            </select>
-        </div>
-       @*  <div class="d-flex flex-column pt-4">
-            <label for="auto">Auto</label>
-            <InputSelect @bind-Value="Request.Auto" class="w-50" id="auto">
-                @if (Auto != null)
-                {
-                    @foreach (var auto in Auto)
-                    {
-                        <option>@auto.Merk</option>
-                    }
-                }
-                else
-                {
-                    <option>niks gevonden</option>
+                    <option>Loading...</option>
                 }
             </InputSelect>
-        </div> *@
+        </div>
         <div class="d-flex flex-column pt-4">
             <label for="beginAdres">Begin adres</label>
-            <InputText @bind-Value="Request.StartAdres" class="w-50" type="text" id="beginStand" />
+            <InputText @bind-Value="Request.StartAdres" class="w-50" type="text" id="beginAdres" />
         </div>
         <div class="d-flex flex-column pt-4">
             <label for="eindAdres">Eind adres</label>
             <InputText @bind-Value="Request.EindAdres" class="w-50" type="text" id="eindAdres" />
         </div>
         <div class="d-flex flex-column pt-4">
-            <label for="beginStand">Kilometer stand begin van de rit.</label>
+            <label for="beginStand">Kilometer stand begin van de rit</label>
             <InputText @bind-Value="Request.BeginKilometerStand" class="w-50" type="text" id="beginStand" />
         </div>
         <div class="d-flex flex-column pt-4">
-            <label for="eindStand">Kilometer stand einde van de rit.</label>
+            <label for="eindStand">Kilometer stand einde van de rit</label>
             <InputText @bind-Value="Request.EindKilometerStand" class="w-50" type="text" id="eindStand" />
         </div>
         <div class="d-flex flex-column pt-4">
-            <label for="datum">Geef de datum van wanneer de rit is/was</label>
+            <label for="datum">Datum</label>
             <InputDate @bind-Value="Request.Datum" class="w-50" id="datum" />
         </div>
-        <input class="btn btn-primary mt-4" type="submit" value="Maak rit aan">
+        <button type="submit" class="btn btn-primary mt-4">Maak rit aan</button>
     </EditForm>
 
-    <div class="my-5 ">
-    @if (Reservering != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Chauffeur</th>
-                    <th>BeginKilometerStand</th>
-                    <th>EindKilometerStand</th>
-                    <th>Datum</th>
-                    <th>StartAdres</th>
-                    <th>EindAdres</th>
-                    <th>Auto</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var reservering in Reservering)
-                {
+    <div class="my-5">
+        @if (Reserveringen != null)
+        {
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@reservering.Id</td>
-                        <td>@reservering.Chauffeur</td>
-                        <td>@reservering.BeginKilometerStand</td>
-                        <td>@reservering.EindKilometerStand</td>
-                        <td>@reservering.Datum</td>
-                        <td>@reservering.StartAdres</td>
-                        <td>@reservering.EindAdres</td>
+                        <th>Id</th>
+                        <th>Chauffeur</th>
+                        <th>BeginKilometerStand</th>
+                        <th>EindKilometerStand</th>
+                        <th>Datum</th>
+                        <th>StartAdres</th>
+                        <th>EindAdres</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <h1>niks gevonden</h1>
-    }
+                </thead>
+                <tbody>
+                    @foreach (var reservering in Reserveringen)
+                    {
+                        <tr>
+                            <td>@reservering.Id</td>
+                            <td>@reservering.Chauffeur.Voornaam @reservering.Chauffeur.Achternaam</td>
+                            <td>@reservering.BeginKilometerStand</td>
+                            <td>@reservering.EindKilometerStand</td>
+                            <td>@reservering.Datum</td>
+                            <td>@reservering.StartAdres</td>
+                            <td>@reservering.EindAdres</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h1>Loading...</h1>
+        }
     </div>
 </div>
 
-
 @code {
-    public UserDto[] Users { get; set; }
-    public AutoDto[] Auto { get; set; }
-    public ReserveringDto[] Reservering { get; set; }
-    private readonly ReserveringRequest Request = new();
+    public ChauffeurDto[] Chauffeurs { get; set; }
+    public ReserveringDto[] Reserveringen { get; set; }
+    private ReserveringRequest Request = new ReserveringRequest();
 
-    protected override void OnInitialized()
-    {
-        Request.Datum = DateTime.Now;
-    }
     protected override async Task OnInitializedAsync()
     {
-        Users = await UserHttpClient.GetUsers();
-        Reservering = await reserveringHttpClient.GetReserveringen();
+        try
+        {
+            Chauffeurs = await HttpClient.GetFromJsonAsync<ChauffeurDto[]>("api/chauffeur");
+            Reserveringen = await HttpClient.GetFromJsonAsync<ReserveringDto[]>("api/reservering");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error fetching data: {ex.Message}");
+        }
+        Request.Datum = DateTime.Now;
     }
 
-    // private async Task createReservering()
-    // {
-    //     var createdReservering = await reserveringHttpClient.CreateReservering(Request);
-    // }
-
+    private async Task CreateRit()
+    {
+        var response = await HttpClient.PostAsJsonAsync("api/reservering", Request);
+        if (response.IsSuccessStatusCode)
+        {
+            var newRit = await response.Content.ReadFromJsonAsync<ReserveringDto>();
+            var reserveringenList = Reserveringen.ToList();
+            reserveringenList.Add(newRit);
+            Reserveringen = reserveringenList.ToArray();
+            Request = new ReserveringRequest(); // Reset form
+            Request.Datum = DateTime.Now; // Ensure date is reset to now
+        }
+        else
+        {
+            Console.Error.WriteLine($"Error creating reservering: {response.StatusCode}");
+        }
+    }
 }

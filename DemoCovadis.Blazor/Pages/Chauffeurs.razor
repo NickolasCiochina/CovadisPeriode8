@@ -1,0 +1,86 @@
+﻿@page "/chauffeurs"
+@inject HttpClient HttpClient
+
+@using DemoCovadis.Shared.Dtos
+@using System.Net.Http.Json
+
+<PageTitle>Chauffeurs</PageTitle>
+<PageHeader>Chauffeurs</PageHeader>
+
+<div class="d-flex mx-auto justify-content-center flex-column">
+    <div class="my-5">
+        <h3>Existing Chauffeurs</h3>
+        @if (chauffeurs != null && chauffeurs.Count > 0)
+        {
+            <ul>
+                @foreach (var chauffeur in chauffeurs)
+                {
+                    <li>@chauffeur.Voornaam @chauffeur.Achternaam - @chauffeur.Email</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
+    </div>
+
+    <div class="my-5">
+        <h3>Create Chauffeur</h3>
+        <EditForm Model="newChauffeur" OnValidSubmit="CreateChauffeur">
+            <div>
+                <label>Voornaam: </label>
+                <InputText @bind-Value="newChauffeur.Voornaam" />
+            </div>
+            <div>
+                <label>Achternaam: </label>
+                <InputText @bind-Value="newChauffeur.Achternaam" />
+            </div>
+            <div>
+                <label>TelefoonNummer: </label>
+                <InputText @bind-Value="newChauffeur.TelefoonNummer" />
+            </div>
+            <div>
+                <label>Email: </label>
+                <InputText @bind-Value="newChauffeur.Email" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private List<ChauffeurDto> chauffeurs;
+    private ChauffeurDto newChauffeur = new ChauffeurDto();
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            chauffeurs = await HttpClient.GetFromJsonAsync<List<ChauffeurDto>>("api/chauffeur");
+            isLoading = false;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error fetching data: {ex.Message}");
+        }
+    }
+
+
+    private async Task CreateChauffeur()
+    {
+        var response = await HttpClient.PostAsJsonAsync("api/chauffeur", newChauffeur);
+        if (response.IsSuccessStatusCode)
+        {
+            var createdChauffeur = await response.Content.ReadFromJsonAsync<ChauffeurDto>();
+            chauffeurs.Add(createdChauffeur);
+            newChauffeur = new ChauffeurDto(); // Reset form
+        }
+        else
+        {
+            // Handle error (e.g., show a notification)
+        }
+    }
+
+}

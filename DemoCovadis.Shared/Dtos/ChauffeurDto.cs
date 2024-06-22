@@ -9,15 +9,11 @@ namespace DemoCovadis.Shared.Dtos
     public class ChauffeurDto
     {
         public int Id { get; set; }
-
-        public string Naam { get; set; }
-
+        public string Voornaam { get; set; }
+        public string Achternaam { get; set; }
         public string TelefoonNummer { get; set; }
-
-        public string BeginAdres { get; set; }
-
-        public string EindAdres { get; set; }
-
-        public virtual ICollection<AutoDto>? Autos { get; set; }
+        public string Email { get; set; }
+        public ICollection<AutoDto>? Autos { get; set; }
     }
+
 }

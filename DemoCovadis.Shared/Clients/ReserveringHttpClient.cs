@@ -1,50 +1,40 @@
 ﻿using DemoCovadis.Shared.Dtos;
 using DemoCovadis.Shared.Requests;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace DemoCovadis.Shared.Clients;
+public class ReserveringHttpClient
+{
+    private readonly HttpClient client;
+    private readonly JsonSerializerOptions jsonOptions;
 
-    public class ReserveringHttpClient
+    public ReserveringHttpClient(IHttpClientFactory httpClientFactory)
     {
-        private readonly HttpClient client;
-        private readonly JsonSerializerOptions jsonOptions;
+        client = httpClientFactory.CreateClient();
+        client.BaseAddress = new Uri("https://localhost:7250/api/Reservering"); // Ensure correct base address
 
-        public ReserveringHttpClient(IHttpClientFactory httpClientFactory)
+        jsonOptions = new JsonSerializerOptions
         {
-            client = httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri("https://localhost:7250/Reservering");
+            PropertyNameCaseInsensitive = true
+        };
+    }
 
-            jsonOptions = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
+    public async Task<ReserveringDto[]> GetReserveringen()
+    {
+        var response = await client.GetAsync(string.Empty);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return Array.Empty<ReserveringDto>();
         }
 
-        public async Task<ReserveringDto[]> GetReserveringen()
-        {
-            var response = await client.GetAsync(string.Empty);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                return [];
-            }
-
-            var content = await response.Content.ReadAsStringAsync();
-            var reserveringen = JsonSerializer.Deserialize<ReserveringDto[]>(content, jsonOptions);
-
-            if (reserveringen is null)
-            {
-                return [];
-            }
-
-            return reserveringen;
-        }
+        var content = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ReserveringDto[]>(content, jsonOptions) ?? Array.Empty<ReserveringDto>();
+    }
 
     public async Task<ReserveringRequest> CreateReservering(ReserveringRequest reservering)
     {
-        var response = await client.PostAsJsonAsync("/api/Reservering", reservering);
+        var response = await client.PostAsJsonAsync(string.Empty, reservering);
 
         if (response.IsSuccessStatusCode)
         {

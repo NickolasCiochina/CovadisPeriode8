@@ -9,7 +9,6 @@ namespace DemoCovadis.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    
     public class ChauffeurController : ControllerBase
     {
         private readonly ChauffeurService chauffeurService;
@@ -27,15 +26,20 @@ namespace DemoCovadis.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult getChauffeur(int id)
+        public IActionResult GetChauffeur(int id)
         {
-            return Ok();
+            var chauffeur = chauffeurService.GetChauffeurById(id);
+            if (chauffeur == null)
+            {
+                return NotFound();
+            }
+            return Ok(chauffeur);
         }
 
-        [HttpGet("[action]/{naam}")]
-        public IActionResult SearchChauffeur(string naam)
+        [HttpGet("[action]/{achternaam}")]
+        public IActionResult SearchChauffeur(string achternaam)
         {
-            var chauffeurName = chauffeurService.SearchChauffeur(naam);
+            var chauffeurName = chauffeurService.SearchChauffeur(achternaam);
             return Ok(chauffeurName);
         }
 
@@ -43,22 +47,23 @@ namespace DemoCovadis.Controllers
         public IActionResult CreateChauffeur([FromBody] Chauffeur chauffeur)
         {
             var createdChauffeur = chauffeurService.CreateChauffeur(chauffeur);
-
             return Ok(createdChauffeur);
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateChauffeur(int id, [FromBody] Chauffeur chauffeur)
         {
-            return Ok();
+            var updatedChauffeur = chauffeurService.UpdateChauffeur(id, chauffeur);
+            return Ok(updatedChauffeur);
         }
 
         [HttpDelete("{id}")]
-        public void DeleteChauffeur(int id)
+        public IActionResult DeleteChauffeur(int id)
         {
             chauffeurService.DeleteChauffeur(id);
+            return NoContent();
         }
-
     }
+
 
 }

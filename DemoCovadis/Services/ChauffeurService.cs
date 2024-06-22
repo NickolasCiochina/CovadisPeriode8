@@ -17,10 +17,10 @@ namespace DemoCovadis.Services
             return dbContext.Chauffeur.Select(x => new ChauffeurDto
             {
                 Id = x.Id,
-                Naam = x.Naam,
+                Voornaam = x.Voornaam,
+                Achternaam = x.Achternaam,
                 TelefoonNummer = x.TelefoonNummer,
-                BeginAdres = x.BeginAdres,
-                EindAdres = x.EindAdres,
+                Email = x.Email,
                
             });
         }
@@ -36,10 +36,10 @@ namespace DemoCovadis.Services
             return new ChauffeurDto
             {
                 Id = chauffeur.Id,
-                Naam = chauffeur.Naam,
-                TelefoonNummer = chauffeur.TelefoonNummer,
-                BeginAdres= chauffeur.BeginAdres,
-                EindAdres= chauffeur.EindAdres,
+                Voornaam = chauffeur.Voornaam,
+                Achternaam = chauffeur.Achternaam,
+                TelefoonNummer = chauffeur.TelefoonNummer, 
+                Email = chauffeur.Email,
             };
         }
         public ChauffeurDto CreateChauffeur(Chauffeur chauffeur)
@@ -50,20 +50,38 @@ namespace DemoCovadis.Services
             return new ChauffeurDto
             {
                 Id = chauffeur.Id,
-                Naam = chauffeur.Naam,
+                Voornaam = chauffeur.Voornaam,
+                Achternaam = chauffeur.Achternaam,
                 TelefoonNummer = chauffeur.TelefoonNummer,
-                BeginAdres = chauffeur.BeginAdres,
-                EindAdres = chauffeur.EindAdres,
+                Email = chauffeur.Email,
             };
         }
-        public ChauffeurDto? UpdateChauffeur (int id, Chauffeur chauffeur)
+        public ChauffeurDto? UpdateChauffeur(int id, Chauffeur chauffeur)
         {
-            throw new NotImplementedException();
+            var existingChauffeur = dbContext.Chauffeur.Find(id);
+            if (existingChauffeur == null) return null;
+
+            existingChauffeur.Voornaam = chauffeur.Voornaam;
+            existingChauffeur.Achternaam = chauffeur.Achternaam;
+            existingChauffeur.TelefoonNummer = chauffeur.TelefoonNummer;
+            existingChauffeur.Email = chauffeur.Email;
+
+            dbContext.SaveChanges();
+
+            return new ChauffeurDto
+            {
+                Id = existingChauffeur.Id,
+                Voornaam = existingChauffeur.Voornaam,
+                Achternaam = existingChauffeur.Achternaam,
+                TelefoonNummer = existingChauffeur.TelefoonNummer,
+                Email = existingChauffeur.Email
+            };
         }
+
         public IEnumerable<Chauffeur> SearchChauffeur(string naam)
         {
             return dbContext.Chauffeur
-                    .Where(n => n.Naam
+                    .Where(n => n.Achternaam
                     .ToLower()
                     .Contains(naam.ToLower()))
                 .ToArray();

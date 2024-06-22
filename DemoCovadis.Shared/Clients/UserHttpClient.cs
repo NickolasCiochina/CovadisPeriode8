@@ -11,7 +11,7 @@ public class UserHttpClient
     public UserHttpClient(IHttpClientFactory httpClientFactory)
     {
         client = httpClientFactory.CreateClient();
-        client.BaseAddress = new Uri("https://localhost:7250/User");
+        client.BaseAddress = new Uri("https://localhost:7250/api/User");
 
         jsonOptions = new JsonSerializerOptions
         {
@@ -25,17 +25,10 @@ public class UserHttpClient
 
         if (!response.IsSuccessStatusCode)
         {
-            return [];
+            return Array.Empty<UserDto>();
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        var users = JsonSerializer.Deserialize<UserDto[]>(content, jsonOptions);
-
-        if (users is null)
-        {
-            return [];
-        }
-
-        return users;
+        return JsonSerializer.Deserialize<UserDto[]>(content, jsonOptions) ?? Array.Empty<UserDto>();
     }
 }
